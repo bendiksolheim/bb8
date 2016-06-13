@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "discover": "node ./node_modules/noble/examples/advertisement-discovery.js"
+        "discover": "node ./node_modules/noble/examples/advertisement-discovery.js",
+        "start": "node index.js"
     },
     "author": "",
     "license": "ISC",
