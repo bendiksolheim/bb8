@@ -1,6 +1,7 @@
 // BB8: 3a61cbc9fc5d4cefaa845d4e57a91272
 const bb8 = require('./bb8');
 const myo = require('./myo');
+const math = require('./math');
 
 const gameData = {
     myoConnected: false,
@@ -12,7 +13,7 @@ const gameData = {
 myo.connect(data => {
     console.log('Connected to ', data.name);
     gameData.myoConnected = true;
-    process.on('myo:oriencationchange', change => gameData.direction = (gameData.direction + change) % 359);
+    process.on('myo:oriencationchange', delta => gameData.direction = math.wrapDegrees(gameData.direction, delta));
 });
 
 bb8.connect(() => {

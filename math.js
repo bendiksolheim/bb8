@@ -31,10 +31,16 @@ function rollToDegrees(rollFactor) {
                      );
 }
 
+function wrapDegrees(d, delta) {
+    d += delta;
+    return (d % 359 + 359) % 359;
+}
+
 module.exports = {
     roll,
     pitch,
     yaw,
     clamp,
-    rollToDegrees
+    rollToDegrees,
+    wrapDegrees
 };
