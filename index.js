@@ -7,13 +7,14 @@ const gameData = {
     myoConnected: false,
     bb8Connected: false,
     direction: 0,
-    speed: 50
+    speed: 0
 };
 
 myo.connect(data => {
     console.log('Connected to ', data.name);
     gameData.myoConnected = true;
     process.on('myo:oriencationchange', delta => gameData.direction = math.wrapDegrees(gameData.direction, delta));
+    process.on('myo:speed', speed => gameData.speed = speed);
 });
 
 bb8.connect(() => {
@@ -30,7 +31,7 @@ function startGame(data) {
         if (!isConnected(data)) {
             return;
         }
-        console.log(gameData.direction);
+        console.log('Direction:', gameData.direction, '\tSpeed:', gameData.speed);
         bb8.roll(data.speed, data.direction);
     }, 100);
 }

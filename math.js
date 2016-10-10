@@ -11,12 +11,26 @@ function yaw(q) {
 }
 
 /**
- * Clamp value to between -1 and 1
+ * Clamp value to between min and max
  * @param {Number} value value to be clamped
+ * @param {Number} min minimum value
+ * @param {Number} max maximum value
  * @return {Number} clamped value
  */
-function clamp(value) {
-    return Math.min(1, Math.max(-1, value));
+function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+}
+
+/**
+ * Map one interval to another
+ * @param {Number} value
+ * @param {Number} fromA
+ * @param {Number} fromB
+ * @param {Number} toA
+ * @param {Number} toB
+ **/
+function mapInterval(v, fromA, fromB, toA, toB) {
+    return (v - fromA) * (toB - toA) / (fromB - fromA) + toA;
 }
 
 /**
@@ -41,6 +55,7 @@ module.exports = {
     pitch,
     yaw,
     clamp,
+    mapInterval,
     rollToDegrees,
     wrapDegrees
 };

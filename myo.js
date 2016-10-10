@@ -6,9 +6,13 @@ const changeFactor = 5;
 
 myo.on('orientation', (quaternion) => {
     const rollValue = math.roll(quaternion);
-    const rollFactor = math.clamp(rollValue);
-    const delta = Math.round(changeFactor * rollFactor);
-    process.emit('myo:oriencationchange', delta);
+    const rollFactor = math.clamp(rollValue, -1, 1);
+    const rollDelta = Math.round(changeFactor * rollFactor);
+    process.emit('myo:oriencationchange', rollDelta);
+
+    const speedValue = math.clamp(math.pitch(quaternion) * -1, -0.5, .5);
+    const speed = math.mapInterval(speedValue, -0.5, 0.5, 0, 150);
+    process.emit('myo:speed', speed);
 });
 
 function connect(connectedFn) {
