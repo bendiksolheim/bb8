@@ -1,7 +1,13 @@
-// BB8: 3a61cbc9fc5d4cefaa845d4e57a91272
 const bb8 = require('./bb8');
 const myo = require('./myo');
 const math = require('./math');
+
+if (process.argv.length < 3) {
+    console.log('Usage: node index.js {peripheral id}');
+    process.exit(1);
+}
+
+const id = process.argv[2];
 
 const gameData = {
     myoConnected: false,
@@ -17,7 +23,7 @@ myo.connect(data => {
     process.on('myo:speed', speed => gameData.speed = speed);
 });
 
-bb8.connect(() => {
+bb8.connect(id, () => {
     console.log('Connectedo to BB8');
     gameData.bb8Connected = true;
 });

@@ -1,31 +1,27 @@
 const sphero = require('sphero');
-const bb8 = sphero('e7d4b68ae0394a108cfc090f13e269d3');
+// const bb8 = sphero('e7d4b68ae0394a108cfc090f13e269d3');
 
-// roll(speed, heading, state, callback);
-// speed:
-// heading: 0-359
-// function connected() {
-//     console.log('Connected');
-//     bb8.color(0x00ff00);
-//     bb8.roll(155, 0);
-// }
+var bb8 = null;
 
-// bb8.connect()
-//     .then(connected);
+function connect(id, connectedFn) {
+    bb8 = sphero(id);
+    bb8.connect()
+        .then(connectedFn)
+        .catch((e) => {
+            console.log('Failed connecting to bb8 with id', id);
+            console.log(e);
+        });
+}
 
-// bb8.stopOnDisconnect((err, data) => {
-//     if (err) {
-//         console.log('Error stopping:', err);
-//     } else {
-//         console.log('Disconnected and stopped:', data);
-//     }
-// })
+function roll(speed, direction) {
+    if (!bb8) {
+        return;
+    }
 
-function connect(connectedFn) {
-    bb8.connect().then(connectedFn);
+    bb8.roll(speed, direction);
 }
 
 module.exports = {
     connect,
-    roll: bb8.roll
+    roll: roll
 };
