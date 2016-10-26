@@ -24,7 +24,7 @@ myo.connect(data => {
 });
 
 bb8.connect(id, () => {
-    console.log('Connectedo to BB8');
+    console.log('Connected to BB8');
     gameData.bb8Connected = true;
 });
 
