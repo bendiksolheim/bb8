@@ -8,8 +8,8 @@ noble.on('stateChange', function(state) {
 });
 
 noble.on('discover', function(peripheral) {
-    if (!peripheral.advertisement.localName.includes('BB-8'))
+    if (!peripheral || !peripheral.advertisement || !peripheral.advertisement.localName || !peripheral.advertisement.localName.includes('BB-8'))
         return;
 
-    console.log('BB-8 found:', peripheral.id);
+    console.log('BB-8 found:', peripheral.advertisement.localName, peripheral.id);
 });
